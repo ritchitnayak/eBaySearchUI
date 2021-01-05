@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-3 mx-auto">
+    <a class="inline_block" href="https://www.ebay.com" target="_blank">
+      <img src="assets/img/ebayHome.png" class="img-fluid" alt="Ebay logo">
+    </a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-7 mx-auto">
+    <app-input-form 
+    (searchEbay)="searchEbay($event)"
+    (clear)="clearData()"
+    [nores]="nores"
+    >
+    </app-input-form>
+  </div>
+</div>
+
+<div *ngIf="totalItems !== 0" class="row mt-5">
+  <div class="col-lg-5 h5 ellipsis">Results for {{ keywords }}</div>
+  <div class="col-lg-7 text-center text-lg-right">
+    <pagination-controls class="my-pagination" id="item_pagination" maxSize="{{ pgCtrlMaxSize }}" directionLinks="true" (pageChange)="pnum = $event"></pagination-controls>
+  </div>
+</div>
+<app-search-item
+    *ngFor="let item of items | paginate: { id: 'item_pagination', itemsPerPage: 5, currentPage: pnum, totalItems: totalItems }"
+    [item]="item"
+    >
+</app-search-item>

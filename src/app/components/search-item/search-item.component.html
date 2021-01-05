@@ -1,0 +1,79 @@
+<div class="card mb-3 my-card">
+  <div class="row no-gutters">
+    <div class="col-md-2 text-center">
+      <img src="{{ item.imgUrl }}" class="card-img" alt="Ebay Default">
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <p class="card-title h6 text-primary"><a href="{{ item.redirect }}" target="_blank">{{ item.title }}</a></p>
+        <p class="card-text"><strong>Price:&nbsp;</strong>${{ item.price }}</p>
+        <p class="card-text font-italic text-muted d-inline-block">{{ item.loc }}</p>
+        <button *ngIf="!isExpanded; else expand" class="btn btn-light btn-sm ml-2" (click)="onToggle()">Show Details</button>
+        <mat-tab-group *ngIf="isExpanded">
+          <mat-tab label="Basic">
+            <div class="d-flex my-tab">
+              <div class="my-basic-label"><strong>Category Name</strong></div>
+              <div class="my-content flex-grow-1">{{ item.cat }}</div>
+            </div>
+            <div class="d-flex my-tab">
+              <div class="my-basic-label"><strong>Condition</strong></div>
+              <div class="my-content flex-grow-1">{{ item.cond }}</div>
+            </div>
+          </mat-tab>
+          <mat-tab label="Shipping Info">
+            <div class="d-flex my-tab">
+              <div class="my-label"><strong>Shipping Type</strong></div>
+              <div class="my-content flex-grow-1">{{ item.shipType }}</div>
+            </div>
+            <div class="d-flex my-tab">
+              <div class="my-label"><strong>Shipping cost</strong></div>
+              <div class="my-content flex-grow-1">{{ item.shipCost }}</div>
+            </div>
+            <div class="d-flex my-tab">
+              <div class="my-label"><strong>Shiptolocations</strong></div>
+              <div class="my-content flex-grow-1">{{ item.shipToLoc }}</div>
+            </div>
+            <div class="d-flex my-tab">
+              <div class="my-label"><strong>ExpeditedShipping</strong></div>
+              <div class="my-content flex-grow-1"><i class="material-icons" style="color:green" *ngIf="item.expShip == 'true'; else wrong">done</i></div>
+            </div>
+            <div class="d-flex my-tab">
+              <div class="my-label"><strong>OneDayShippingAvailable</strong></div>
+              <div class="my-content flex-grow-1"><i class="material-icons" style="color:green" *ngIf="item.onedayship == 'true'; else wrong">done</i></div>
+            </div>
+          </mat-tab>
+          <mat-tab label="Listing info">
+            <div class="d-flex my-tab">
+              <div class="my-label"><strong>BestOfferEnabled</strong></div>
+              <div class="my-content flex-grow-1"><i class="material-icons" style="color:green" *ngIf="item.bestOff == 'true'; else wrong">done</i></div>
+            </div>
+            <div class="d-flex my-tab">
+              <div class="my-label"><strong>BuyNowAvailable</strong></div>
+              <div class="my-content flex-grow-1"><i class="material-icons" style="color:green" *ngIf="item.buyNow == 'true'; else wrong">done</i></div>
+            </div>
+            <div class="d-flex my-tab">
+              <div class="my-label"><strong>ListingType</strong></div>
+              <div class="my-content flex-grow-1">{{ item.listingType }}</div>
+            </div>
+            <div class="d-flex my-tab">
+              <div class="my-label"><strong>Gift</strong></div>
+              <div class="my-content flex-grow-1"><i class="material-icons" style="color:green" *ngIf="item.gift == 'true'; else wrong">done</i></div>
+            </div>
+            <div class="d-flex my-tab">
+              <div class="my-label"><strong>WatchCount</strong></div>
+              <div class="my-content flex-grow-1">{{ item.wcount }}</div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #wrong>
+  <i class="material-icons" style="color:red">clear</i>
+</ng-template>
+
+<ng-template #expand>
+  <button class="btn btn-light btn-sm ml-2" (click)="onToggle()">Hide Details</button>
+</ng-template>

@@ -1,0 +1,20 @@
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.search-header {
+  text-align: left;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.my-pagination /deep/ ul {
+  padding-left: 0px !important;
+}

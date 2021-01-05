@@ -1,0 +1,104 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" #formDirective="ngForm">
+  <div class="form-row mb-3">
+    <label class="col-sm-3 col-form-label font-weight-bold">Keywords<span class="required">*</span></label>
+    <div class="col-sm-9">
+      <input type="text" formControlName="keywords" class="form-control" placeholder="Enter keywords">
+    </div>
+  </div>
+
+  <div formGroupName="prange" class="form-row">
+    <label class="col-sm-3 col-form-label font-weight-bold">Price range</label>
+    <div class="col mr-2">
+      <input type="number" formControlName="minprice" step="0.1" class="form-control" placeholder="Min price">
+    </div>
+    <div class="col">
+      <input type="number" formControlName="maxprice" step="0.1" class="form-control" placeholder="Max price">
+    </div>
+  </div>
+
+  <div formGroupName="condition" class="form-row mt-1">
+    <label class="col-sm-3 col-form-label font-weight-bold">Condition</label>
+    <div class="col-sm-9 my-auto">
+      <div class="form-check form-check-inline">
+        <input type="checkbox" formControlName="new" class="form-check-input">
+        <label class="form-check-label font-weight-bold">New</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="checkbox" formControlName="used" class="form-check-input">
+        <label class="form-check-label font-weight-bold">Used</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="checkbox" formControlName="vgood" class="form-check-input">
+        <label class="form-check-label font-weight-bold">Very Good</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="checkbox" formControlName="good" class="form-check-input">
+        <label class="form-check-label font-weight-bold">Good</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="checkbox" formControlName="acceptable" class="form-check-input">
+        <label class="form-check-label font-weight-bold">Acceptable</label>
+      </div>
+    </div>
+  </div>
+
+  <div formGroupName="seller" class="form-row">
+    <label class="col-sm-3 col-form-label font-weight-bold">Seller</label>
+    <div class="col my-auto">
+      <div class="form-check form-check-inline">
+        <input type="checkbox" formControlName="ret_accepted" class="form-check-input">
+        <label class="form-check-label font-weight-bold">Return Accepted</label>
+      </div>
+    </div>
+  </div>
+
+  <div formGroupName="shipping" class="form-row">
+    <label class="col-sm-3 col-form-label font-weight-bold">Shipping</label>
+    <div class="col my-auto">
+      <div class="form-check form-check-inline">
+        <input type="checkbox" formControlName="free" class="form-check-input">
+        <label class="form-check-label font-weight-bold">Free</label>
+      </div>
+
+      <div class="form-check form-check-inline mb-1">
+        <input type="checkbox" formControlName="expedited" class="form-check-input">
+        <label class="form-check-label font-weight-bold">Expedited</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <label class="col-sm-3 col-form-label font-weight-bold">Sort Order</label>
+    <div class="col my-auto">
+      <select formControlName="sortorder" class="form-control">
+        <option *ngFor="let ord of SOrder" [ngValue]="ord.value">{{ ord.name }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row mt-3 mb-3">
+    <div class="col d-flex justify-content-end">
+      <button type="submit" class="btn btn-info mr-2 d-flex justify-content-center"><i class="material-icons">search</i>Search</button>
+      <button type="button" class="btn btn-dark d-flex justify-content-center" (click)="onClear(formDirective)"><i class="material-icons">clear_all</i>Clear</button>
+    </div>
+  </div>
+</form>
+
+<div *ngIf="submitted && searchForm.get('keywords').errors" class="alert alert-warning d-flex justify-content-center">
+  <div *ngIf="searchForm.get('keywords').errors.required">
+    Please enter a keyword
+  </div>
+</div>
+
+<div *ngIf="submitted && searchForm.get('prange.maxprice').errors" class="alert alert-warning d-flex justify-content-center">
+  <div *ngIf="searchForm.get('prange.maxprice').errors.minmaxerror">
+    Please use appropriate valies for minPrice/maxPrice
+  </div>
+  <div *ngIf="searchForm.get('prange.maxprice').errors.negative">
+    Please use positive values
+  </div>
+</div>
+
+<div *ngIf="nores" class="alert alert-warning d-flex justify-content-center">
+  <div>No results found</div>
+</div>
